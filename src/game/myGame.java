@@ -20,6 +20,7 @@ public class myGame {
 	
 	}
 	public static void setup() {
+		
 		frame.setSize(WIDTH, HEIGHT);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

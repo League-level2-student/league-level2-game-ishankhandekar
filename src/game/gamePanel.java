@@ -25,7 +25,7 @@ public class gamePanel extends JPanel implements KeyListener,ActionListener {
 	
 	int currentState = MENU;
 	public gamePanel() {
-		farmer = new Farmer();
+		farmer = new Farmer(700,375, 50,50);
 		frameDraw = new Timer(1000/60,this);
 	    frameDraw.start();
 		titleFont = new Font("Arial", Font.PLAIN, 48);
@@ -53,8 +53,9 @@ public class gamePanel extends JPanel implements KeyListener,ActionListener {
 
 
 	public void drawGameState(Graphics g) {
-		g.setColor(Color.GREEN);
+		g.setColor(new Color(173, 216, 230));
 		 g.fillRect(0, 0, myGame.WIDTH, myGame.HEIGHT);
+		 farmer.draw(g);
 	}
 	public void drawEndState(Graphics g) {
 		g.setColor(Color.RED);
@@ -82,7 +83,13 @@ public class gamePanel extends JPanel implements KeyListener,ActionListener {
 		    	
 		    }else if(currentState == GAME) {
 		        currentState++;
-		    }}}
+		    }
+		    }
+		else if (e.getKeyCode()==KeyEvent.VK_RIGHT && currentState == GAME && ( farmer.x < 741 )) {
+			farmer.right();
+		}else if(e.getKeyCode()==KeyEvent.VK_LEFT && currentState == GAME && ( farmer.x > 0 )) {
+			farmer.left();
+		}}
 
 	@Override
 	public void keyReleased(KeyEvent arg0) {
