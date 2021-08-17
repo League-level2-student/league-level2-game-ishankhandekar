@@ -10,6 +10,7 @@ public class GameObject {
 	 boolean isActive = true;
 	 Rectangle collisionBox;
 	public GameObject(int x, int y, int width, int height){
+		this.collisionBox = new Rectangle(); 
 		 this.y = y;
 		 this.x = x;
 		 this.width = width;

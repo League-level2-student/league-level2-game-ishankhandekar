@@ -13,7 +13,8 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class gamePanel extends JPanel implements KeyListener,ActionListener {
-	
+	objectManager objManager;
+	Timer fruitSpawn;
 	Timer frameDraw;
 	myGame fruitFamer;
 	Farmer farmer;
@@ -28,8 +29,11 @@ public class gamePanel extends JPanel implements KeyListener,ActionListener {
 		farmer = new Farmer(700,375, 50,50);
 		frameDraw = new Timer(1000/60,this);
 	    frameDraw.start();
+	  
 		titleFont = new Font("Arial", Font.PLAIN, 48);
 		 subTitleFont = new Font("Arial", Font.PLAIN, 24);
+		 objManager = new objectManager(farmer);
+		 
 	}
 	@Override
 	public void paintComponent(Graphics g){
@@ -50,7 +54,10 @@ public class gamePanel extends JPanel implements KeyListener,ActionListener {
 		
 	}
 	
-
+	public void startGame() {
+		fruitSpawn = new Timer(1000 ,  objManager);
+	    fruitSpawn.start();
+	}
 
 	public void drawGameState(Graphics g) {
 		g.setColor(new Color(173, 216, 230));
@@ -65,11 +72,15 @@ public class gamePanel extends JPanel implements KeyListener,ActionListener {
 		
 	}
 	public void updateGameState() {
-		
+		 objManager.update();
+		 if (farmer.isActive == false) {
+			currentState = END;
+		}
 	}
 	public void updateEndState() {
 		
 	}
+	
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
