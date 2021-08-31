@@ -29,7 +29,8 @@ public class gamePanel extends JPanel implements KeyListener,ActionListener {
 		farmer = new Farmer(700,375, 50,50);
 		frameDraw = new Timer(1000/60,this);
 	    frameDraw.start();
-	  
+	    fruitSpawn = new Timer(1000/1,this);
+	    fruitSpawn.addActionListener(objManager);
 		titleFont = new Font("Arial", Font.PLAIN, 48);
 		 subTitleFont = new Font("Arial", Font.PLAIN, 24);
 		 objManager = new objectManager(farmer);
@@ -41,6 +42,7 @@ public class gamePanel extends JPanel implements KeyListener,ActionListener {
 		    drawMenuState(g);
 		}else if(currentState == GAME){
 		    drawGameState(g);
+		    
 		}else if(currentState == END){
 		    drawEndState(g);
 		}
@@ -55,7 +57,7 @@ public class gamePanel extends JPanel implements KeyListener,ActionListener {
 	}
 	
 	public void startGame() {
-		fruitSpawn = new Timer(1000 ,  objManager);
+		fruitSpawn = new Timer(1000 , objManager);
 	    fruitSpawn.start();
 	}
 
@@ -63,6 +65,7 @@ public class gamePanel extends JPanel implements KeyListener,ActionListener {
 		g.setColor(new Color(173, 216, 230));
 		 g.fillRect(0, 0, myGame.WIDTH, myGame.HEIGHT);
 		 farmer.draw(g);
+		 objManager.drawFruits(g);
 	}
 	public void drawEndState(Graphics g) {
 		g.setColor(Color.RED);
@@ -91,6 +94,7 @@ public class gamePanel extends JPanel implements KeyListener,ActionListener {
 		        
 		    }else if(currentState == MENU) {
 		    	currentState++;
+		    	startGame();
 		    	
 		    }else if(currentState == GAME) {
 		        currentState++;
@@ -116,9 +120,11 @@ public class gamePanel extends JPanel implements KeyListener,ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+		
 		if(currentState == MENU){
 		    updateMenuState();
 		}else if(currentState == GAME){
+			
 		    updateGameState();
 		}else if(currentState == END){
 		    updateEndState();

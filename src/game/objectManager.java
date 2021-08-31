@@ -9,8 +9,11 @@ import java.util.Random;
 public class objectManager implements ActionListener {
 	Random r;
 	ArrayList <fruit> fruits;
+	ArrayList <hazzards> hazzards;
 	Integer score;
 	Farmer farmer;
+	fruit apples;
+	hazzards hazzard;
 	public objectManager(Farmer farmer) {
 		score = 0;
 		r = new Random();
@@ -22,7 +25,7 @@ public class objectManager implements ActionListener {
 	}
 	public void addFruit() {
 		fruits.add(new fruit(r.nextInt(myGame.WIDTH),0,50,50));
-	
+		
 	}
 
 	public void update() {
@@ -66,7 +69,11 @@ public void purgeObjects() {
 @Override
 public void actionPerformed(ActionEvent e) {
 	// TODO Auto-generated method stub
-	addFruit();
+	if(new Random().nextInt(2) == 0) {
+		addFruit();
+	}
+	
+	
 }
 	
 	
