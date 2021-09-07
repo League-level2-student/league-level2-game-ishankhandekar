@@ -13,9 +13,11 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class gamePanel extends JPanel implements KeyListener,ActionListener {
+	
 	objectManager objManager;
 	Timer fruitSpawn;
 	Timer frameDraw;
+	Timer speedTimer;
 	myGame fruitFamer;
 	Farmer farmer;
 	Font titleFont;
@@ -29,11 +31,13 @@ public class gamePanel extends JPanel implements KeyListener,ActionListener {
 		farmer = new Farmer(700,375, 50,50);
 		frameDraw = new Timer(1000/60,this);
 	    frameDraw.start();
-	    fruitSpawn = new Timer(1000/1,this);
-	    fruitSpawn.addActionListener(objManager);
+	     objManager = new objectManager(farmer);
+	    fruitSpawn = new Timer(1000,objManager);
+	    speedTimer = new Timer(10000, this);
+	   
 		titleFont = new Font("Arial", Font.PLAIN, 48);
 		 subTitleFont = new Font("Arial", Font.PLAIN, 24);
-		 objManager = new objectManager(farmer);
+		
 		 
 	}
 	@Override
@@ -57,15 +61,18 @@ public class gamePanel extends JPanel implements KeyListener,ActionListener {
 	}
 	
 	public void startGame() {
+		
 		fruitSpawn = new Timer(1000 , objManager);
 	    fruitSpawn.start();
+	    speedTimer = new Timer(10000 , this);
+	    speedTimer.start(); 
 	}
 
 	public void drawGameState(Graphics g) {
 		g.setColor(new Color(173, 216, 230));
 		 g.fillRect(0, 0, myGame.WIDTH, myGame.HEIGHT);
 		 farmer.draw(g);
-		 objManager.drawFruits(g);
+		 objManager.drawFruitsOrHazzards(g);
 	}
 	public void drawEndState(Graphics g) {
 		g.setColor(Color.RED);
@@ -121,6 +128,13 @@ public class gamePanel extends JPanel implements KeyListener,ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		
+		if (e.getSource() == speedTimer) {
+			System.out.println("hello world");
+			hazzards.speed += 1;
+			fruit.speed += 1;
+		}
+		if (e.getSource() == frameDraw) {
+		
 		if(currentState == MENU){
 		    updateMenuState();
 		}else if(currentState == GAME){
@@ -129,8 +143,8 @@ public class gamePanel extends JPanel implements KeyListener,ActionListener {
 		}else if(currentState == END){
 		    updateEndState();
 		}
+		repaint();}
 		
-		repaint();
 	}
 	
 	

@@ -9,11 +9,11 @@ public class hazzards extends GameObject  {
 	 final String[] hazzardTypes = {"Stick","Rock","Rotten Fruit"};
 	 final String[] hazzardPoints = {"5","8","3"};
 	String whatHazzard;
-	int speed;
+	static int speed = 1;
 	public hazzards(int x, int y, int width, int height) {
 		super( x, y,  width,  height);
 		whatHazzard = hazzardTypes[new Random().nextInt(3)];
-		speed = 1;
+		
 	}
 	public void update() {
 		y += speed;

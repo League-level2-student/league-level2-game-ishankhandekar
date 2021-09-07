@@ -4,10 +4,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class fruit extends GameObject{
-	int speed;
+	static int speed = 1;
 	public fruit(int x, int y, int width, int height) {
 		super( x, y,  width,  height);
-		speed = 1;
+		
 	}
 	public void update() {
 		y += speed;
