@@ -6,37 +6,51 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.swing.Timer;
+
 public class objectManager implements ActionListener {
 	Random r;
 	ArrayList <fruit> fruits;
 	ArrayList <hazzards> hazzards;
+	ArrayList<Powerups> powerups;
 	Integer score;
 	Farmer farmer;
 	fruit apples;
 	hazzards hazzard;
+	Timer powerupTimer;
+	boolean isMagnetActive = false;
+	boolean isTimeChangerActive = false;
+	boolean isProbabilityChangerActive = false;
 	public objectManager(Farmer farmer) {
 		score = 20;
 		r = new Random();
 		this.farmer = farmer;
+		ActionListener actionListener;
+		powerupTimer = new Timer(13000,this);
 		fruits = new  ArrayList<fruit>();
 		hazzards = new  ArrayList<hazzards>();
+		powerups = new  ArrayList<Powerups>();
 	}
 	Integer getScore() {
 		return score;
 	}
 	public void addFruitOrHazzards() {
-		int fruitOrHazzard = new Random().nextInt(2);
-		if(fruitOrHazzard == 0) {
+		int fruitOrHazzardOrPowerups = new Random().nextInt(3);
+		if(fruitOrHazzardOrPowerups == 0) {
 			fruits.add(new fruit(r.nextInt(myGame.WIDTH),0,50,50));
-		}else if(fruitOrHazzard == 1) {
+		}else if(fruitOrHazzardOrPowerups == 1) {
 			hazzards.add(new hazzards(r.nextInt(myGame.WIDTH),0,50,50));
+		}else if(fruitOrHazzardOrPowerups == 2) {
+			powerups.add(new Powerups(r.nextInt(myGame.WIDTH),0,50,50));
 		}
 		
 		
 	}
 
 	public void update() {
-		
+		if(isMagnetActive == true) {
+			
+		}
 		for (int i = 0; i < fruits.size(); i++) {
 			fruits.get(i).update();
 			if (fruits.get(i).y >= myGame.HEIGHT) {
@@ -87,6 +101,22 @@ public void checkCollision() {
 				}else if(hazzards.get(i).whatHazzard.equals("Rock")) {
 					score -= 8;
 				}else if(hazzards.get(i).whatHazzard.equals("Rotten Fruit")) {
+					score -= 3;
+				}
+				
+				
+			}
+			
+		}
+		for (int i = 0; i < powerups.size(); i++) {
+			if (farmer.collisionBox.intersects(powerups.get(i)
+					.collisionBox)) {
+				powerups.get(i).isActive = false;
+				if (powerups.get(i).whatPowerup.equals("Magnet")) {
+					score -= 5;
+				}else if(powerups.get(i).whatPowerup.equals("Probability Changer")) {
+					score -= 8;
+				}else if(powerups.get(i).whatPowerup.equals("Time Changer")) {
 					score -= 3;
 				}
 				

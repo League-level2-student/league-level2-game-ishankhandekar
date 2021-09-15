@@ -25,14 +25,15 @@ public class gamePanel extends JPanel implements KeyListener,ActionListener {
 	final int MENU = 0;
 	final int GAME = 1;
 	final int END = 2;
-	
+	int fruitSpawnTime;
 	int currentState = MENU;
 	public gamePanel() {
+		fruitSpawnTime = 1000;
 		farmer = new Farmer(700,375, 50,50);
 		frameDraw = new Timer(1000/60,this);
 	    frameDraw.start();
 	     objManager = new objectManager(farmer);
-	    fruitSpawn = new Timer(1000,objManager);
+	    fruitSpawn = new Timer(3000,objManager);
 	    speedTimer = new Timer(10000, this);
 	   
 		titleFont = new Font("Arial", Font.PLAIN, 48);
@@ -64,7 +65,7 @@ public class gamePanel extends JPanel implements KeyListener,ActionListener {
 		
 		fruitSpawn = new Timer(1000 , objManager);
 	    fruitSpawn.start();
-	    speedTimer = new Timer(10000 , this);
+	    speedTimer = new Timer(30000 ,this);
 	    speedTimer.start(); 
 	}
 
@@ -129,7 +130,8 @@ public class gamePanel extends JPanel implements KeyListener,ActionListener {
 		// TODO Auto-generated method stub
 		
 		if (e.getSource() == speedTimer) {
-			System.out.println("hello world");
+			fruitSpawnTime += 20;
+			fruitSpawn.setDelay(fruitSpawnTime);
 			hazzards.speed += 1;
 			fruit.speed += 1;
 		}
