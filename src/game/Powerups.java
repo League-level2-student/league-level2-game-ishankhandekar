@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import java.util.Random;
 
 public class Powerups extends GameObject{
-	final String[] powerupTypes = {"Magnet","Time Changer","Probability Changer"};
+	final String[] powerupTypes = {"Magnet","Time Changer","larger collisionbox"};
 	
 	String whatPowerup;
 	static int speed = 1;
@@ -23,7 +23,7 @@ public class Powerups extends GameObject{
 				g.setColor(Color.RED);
 			}else if(whatPowerup.equals("Time Changer")){
 				g.setColor(Color.GREEN);
-			}else if(whatPowerup.equals("Probability Changer") ) {
+			}else if(whatPowerup.equals("larger collisionbox") ) {
 				g.setColor(Color.WHITE);
 			}
 			

@@ -73,7 +73,7 @@ public class gamePanel extends JPanel implements KeyListener,ActionListener {
 		g.setColor(new Color(173, 216, 230));
 		 g.fillRect(0, 0, myGame.WIDTH, myGame.HEIGHT);
 		 farmer.draw(g);
-		 objManager.drawFruitsOrHazzards(g);
+		 objManager.drawFruitsOrHazzardsOrPowerups(g);
 	}
 	public void drawEndState(Graphics g) {
 		g.setColor(Color.RED);
